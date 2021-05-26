@@ -31,6 +31,8 @@ public class Books
         booksMap.put(4, b4);
         
         this.currentBookID = 4;     // initialise the book ID
+        
+        this.menu();
     }
     
     /**
@@ -71,7 +73,22 @@ public class Books
      * Adds a book to the map
      */
     public void addBook() {
-    
+        final int MAX_QUANTITY = 99;    // boundary for number of books
+        int quantity = -1;
+        
+        // ask the user for details
+        String name = UI.askString("Title: ");
+        String author = UI.askString("Author: ");
+        
+        // check the boundaries for the number of books added to the stock
+        do {
+            quantity = UI.askInt("Quantity: ");
+        }
+        while (0 > quantity || quantity > MAX_QUANTITY);
+        
+        // increment the bookID counter and add book to the hashmap
+        this.currentBookID++;
+        booksMap.put(currentBookID, new Book(currentBookID, name, author, quantity));
     }
     
     /**
@@ -79,7 +96,8 @@ public class Books
      * Should refactor to find on name
      */
     public void findBook() {
-    
+        int bookID = UI.askInt("ID: "); // find book on ID - change to title
+        UI.println(booksMap.get(bookID).getNm());
     }
     
     /**
