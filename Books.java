@@ -31,44 +31,8 @@ public class Books
         booksMap.put(4, b4);
         
         this.currentBookID = 4;     // initialise the book ID
-        
-        this.menu();
     }
-    
-    /**
-     * Menu to print and call appropriate methods
-     */
-    public void menu() {
-        // print menu and force choice
-        String choice;
-        do {
-            UI.println("(A) Add a book");
-            UI.println("(B) Find a book");
-            UI.println("(C) Print All");
-            UI.println("(D) Quit");
-            
-            choice = UI.askString("Enter a choice: ");
-            
-            if (choice.equalsIgnoreCase("A")) {
-                addBook();
-            }
-            else if (choice.equalsIgnoreCase("B")) {
-                findBook();
-            }
-            else if (choice.equalsIgnoreCase("C")) {
-                printAll();
-            }
-            else if (choice.equalsIgnoreCase("D")) {
-                UI.println("Arrivederci");
-                UI.quit();
-            }
-            else {
-                UI.println("That isn't a valid choice buddy...");
-            }
-        }
-        while (!choice.equalsIgnoreCase("D"));
-    }
-    
+
     /**
      * Adds a book to the map
      */
@@ -86,9 +50,13 @@ public class Books
         }
         while (0 > quantity || quantity > MAX_QUANTITY);
         
+        // add a book image to display in the GUI
+        String imgFileName = UIFileChooser.open("Choose image file: ");
+        
         // increment the bookID counter and add book to the hashmap
         this.currentBookID++;
-        booksMap.put(currentBookID, new Book(currentBookID, name, author, quantity));
+        
+        booksMap.put(currentBookID, new Book(currentBookID, name, author, quantity, imgFileName));
     }
     
     /**
@@ -98,6 +66,7 @@ public class Books
     public void findBook() {
         int bookID = UI.askInt("ID: "); // find book on ID - change to title
         UI.println(booksMap.get(bookID).getNm());
+        booksMap.get(bookID).displayBook();     // prints out book name and shows book cover in the GUI
     }
     
     /**
@@ -110,5 +79,12 @@ public class Books
             + booksMap.get(bookID).getAuth() + " "
             + booksMap.get(bookID).getQty());
         }
+    }
+    
+    /**
+     * Quits the program
+     */
+    public void exitProgram() {
+        UI.quit();
     }
 }

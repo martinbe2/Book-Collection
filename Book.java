@@ -16,6 +16,10 @@ public class Book
     private String image;
     private static final String DEFAULT_IMAGE = "book.png";
     
+    private double locX = 100;
+    private double locY = 100;
+    private final double WIDTH = 100;
+    private final double HEIGHT = 100;
     /**
      * Constructor for objects of class Book
      */
@@ -76,11 +80,6 @@ public class Book
      * Display our image on the GUI
      */
     public void displayBook() {
-        double locX = 100;
-        double locY = 100;
-        final double WIDTH = 100;
-        final double HEIGHT = 100;
-        
         UI.drawImage(this.image, locX, locY, WIDTH, HEIGHT);
     }
 }
